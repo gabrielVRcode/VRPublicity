@@ -1,0 +1,121 @@
+<!doctype HTML>
+<html>
+<head>
+	<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+	<script src="https://raw.githack.com/jeromeetienne/AR.js/2.2.0/aframe/build/aframe-ar.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style/myStyle.css">
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>  <!--import A-FRAME Library -->
+	<script src="https://raw.githack.com/AR-js-org/AR.js/3.1.0/aframe/build/aframe-ar-nft.js"></script> <!--import A-FRAME camera marker-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--import ajax from google-->
+</head>
+<!-- <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script> -->
+<!-- <div id="controlls">
+	<button class="btn" id="pause"><i class="fas fa-pause-circle"></i></button>
+	<button class="btn" id="play"><i class="fas fa-play-circle"></i></button>
+	<button class="btn" id="brightness" value="off"><i class="fas fa-sun"></i></button>
+</div> 
+<div id="links">
+	<button class="btnlinks" id="website" style="background-color: #3831b0;"><i class="fas fa-home"></i></button>
+	<button class="btnlinks" id="telephone" style="background-color: #31b051;"><i class="fas fa-phone-alt"></i></button>
+	<button class="btnlinks" id="email" style="background-color: #a31515;"><i class="fas fa-at"></i></button>
+</div> -->
+  <body style='margin : 0px; overflow: hidden;'>
+    <a-scene id="sceneCamera" embedded arjs='debugUIEnabled: false;'>
+      <!--<a-marker type='barcode' value='5'>
+      	<a-box position='0 0.5 0' material='color: yellow;'></a-box>
+      </a-marker>-->
+      <!--<a-assets>
+		<a-asset-item id="iron-obj" src="IronMan/IronMan.obj"></a-asset-item>
+		<a-asset-item id="iron-mtl" src="IronMan/IronMan.mtl"></a-asset-item>
+	  </a-assets>-->
+	  <!--<a-entity obj-model="obj: #iron-obj; mtl: #iron-mtl" position="0 0 0.4" scale="0.005 0.005 0.005" rotation="270 0 0"></a-entity>-->
+
+	  <a-assets>
+	  	<a-asset-item id="turtle" src="turtle/scene.gltf"></a-asset-item>
+	  	<audio id="sea" src="turtle/aa.mp3" preload="auto"></audio> 
+	  </a-assets>
+      <a-marker preset='custom' type='pattern' url='images/pattern-testQR.patt'>
+      	<!-- <a-box position='0.0 0 0' depth="1.2" height="0.002" width="1.2" material="shader: water; color: blue;"></a-box> -->
+      	<a-ocean width="20" depth="20" color="#34b7eb" density="40" opacity="0.9" position="0 0 0"></a-ocean>
+      	<a-entity gltf-model="#turtle" position="0 0.5 0.2" animation-mixer='loop: repeat' soundhandler></a-entity>
+      	<!-- <a-plane position='1 2 0' scale="2 2 2" width="2" rotation="-90 0 0" material='transparent:true; opacity: 0.7; src:#vid'></a-plane> -->
+      	<!-- <a-video id="a-video" src="#vid" rotation="270 0 0" scale="2 1 1"></a-video> -->
+      </a-marker>
+      <a-entity sound='src: #sea; autoplay: false; loop: true'></a-sound>
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+<script type="text/javascript">
+	AFRAME.registerComponent('soundhandler', {
+    tick: function () {
+        var entity = document.querySelector('[sound]');
+        if (document.querySelector('a-marker').object3D.visible == true) {
+        	entity.components.sound.playSound();
+        } else {
+            entity.components.sound.pauseSound();
+        }
+    }
+	});
+
+	/*var a = document.querySelector('a-marker');
+	console.log(a)
+	var vid = document.querySelector("#vid");
+	console.log(vid)
+	if(a.object3D.visible == true){
+		console.log("visible");
+		vid.play();
+	}else{
+		console.log("no visible");
+		vid.pause();
+	}*/
+
+	/*var a = document.querySelector('a-marker');
+	var pauseVid = document.querySelector('#pause');
+	var controlls = document.querySelector("#controlls");
+	var links = document.querySelector('#links');
+
+	a.addEventListener("markerFound", (e)=>{
+		console.log("found");
+		var vid = document.querySelector("#vid").play();
+		controlls.style.visibility = 'visible';
+		links.style.visibility = 'visible';
+		jQuery(".btn").addClass('animate');
+		jQuery(".btnlinks").addClass('animate');
+	});
+	a.addEventListener("markerLost", (e)=>{
+		console.log("lost");
+		var vid = document.querySelector("#vid").pause();
+		controlls.style.visibility = 'hidden';
+		links.style.visibility = 'hidden';
+		jQuery(".btn").removeClass('animate');
+		jQuery(".btnlinks").removeClass('animate');
+		document.querySelector('#sceneCamera').style.background="rgba(0, 0, 0, 0)";
+		document.querySelector('#controlls').style.background="rgba(0, 0, 0, 0)";
+		document.getElementById('brightness').value="off";
+	});
+
+	///button listeners controlls
+	document.getElementById('play').addEventListener('click', (e)=>{
+		document.querySelector("#vid").play();
+	});
+	document.getElementById('pause').addEventListener('click', (e)=>{
+		document.querySelector("#vid").pause();
+	});
+	document.getElementById('brightness').addEventListener('click', (e)=>{
+		var value = document.getElementById('brightness').value;
+		if(value == "off"){
+			document.querySelector('#sceneCamera').style.background="rgba(0, 0, 0, 0.75)";
+			document.querySelector('#controlls').style.background="rgba(0, 0, 0, 0.75)";
+			document.getElementById('brightness').value="on";
+		}
+		if(value == "on"){
+			document.querySelector('#sceneCamera').style.background="rgba(0, 0, 0, 0)";
+			document.querySelector('#controlls').style.background="rgba(0, 0, 0, 0)";
+			document.getElementById('brightness').value="off";
+		}
+	});*/
+</script>
+</html>

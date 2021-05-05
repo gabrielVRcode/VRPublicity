@@ -1,0 +1,5 @@
+RedirectMatch 403 ^/images/?$
+RedirectMatch 403 ^/video/*?$
+RedirectMatch 403 ^/3dmodels/?$
+RedirectMatch 403 ^/js/?$
+RedirectMatch 403 ^/cgi-bin/?$

@@ -1,0 +1,54 @@
+<!doctype HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>  <!--import A-FRAME Library -->
+	<script src="https://raw.githack.com/AR-js-org/AR.js/3.1.0/aframe/build/aframe-ar-nft.js"></script> <!--import A-FRAME camera marker-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> <!--import ajax from google-->
+	<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!--icons from fontawesome-->
+	<script src="js/markerController.js"></script> <!--script marker actions-->
+	<link rel="stylesheet" type="text/css" href="style/myStyle.css">
+</head>
+<div id="controlls"> <!--Controller video-->
+	<button class="btn" id="pause"><i class="fas fa-pause-circle"></i></button>
+	<button class="btn" id="play"><i class="fas fa-play-circle"></i></button>
+	<button class="btn" id="brightness" value="off"><i class="fas fa-lightbulb"></i></button>
+</div>
+<div id="links"> <!--Contact Links-->
+	<button class="btnlinks" id="website" style="background-color: #3831b0;"><i class="fas fa-globe"></i></button>
+	<button class="btnlinks" id="telephone" style="background-color: #31b051;"><i class="fas fa-phone-alt"></i></button>
+	<button class="btnlinks" id="email" style="background-color: #a31515;"><i class="fas fa-at"></i></button>
+</div>
+<body style='margin : 0px; overflow: hidden;'> 
+  	<a-scene id="sceneCamera" embedded arjs='trackingMethod: best; debugUIEnabled: false;' vr-mode-ui="enabled: false"> <!--A-scene active camera-->
+		<a-assets> <!--Preload assets on A-Frame-->
+			<video class="rep" id="vid" src="video/spot-central-de-placas-HD.mp4" crossorigin="anonymous"></video> <!--Video tag HTML-->
+		</a-assets>
+		<a-marker id="centralMarker" preset='custom' type='pattern' url='images/pattern-testQR.png' registerevents> <!--Marker to identify, calling function registerevents-->
+			<a-video src="#vid" rotation="270 0 0" scale="2 1 1"></a-video> <!--Load video from a-assets-->
+		</a-marker>
+		<!--<a-marker id="ownMarker" preset='custom' type='pattern' url='images/pattern-0001.patt' registerevents>
+			<a-video src="#vid2" rotation="270 0 0" scale="2 1 1"></a-video>
+		</a-marker> -->
+		<a-entity camera></a-entity> <!--Camera to see augmented reality-->
+	</a-scene>
+</body>
+<script type="text/javascript"> //Brightness controller
+	document.getElementById('brightness').addEventListener('click', (e)=>{
+		var value = document.getElementById('brightness').value;
+		if(value == "off"){
+			document.querySelector('#sceneCamera').style.background="rgba(0, 0, 0, 0.75)";
+			document.querySelector('#controlls').style.background="rgba(0, 0, 0, 0.75)";
+			document.getElementById('brightness').value="on";
+		}
+		if(value == "on"){
+			document.querySelector('#sceneCamera').style.background="rgba(0, 0, 0, 0)";
+			document.querySelector('#controlls').style.background="rgba(0, 0, 0, 0)";
+			document.getElementById('brightness').value="off";
+		}
+	});
+</script>
+</html>

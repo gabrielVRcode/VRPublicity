@@ -1,0 +1,88 @@
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  #textdiv{
+  	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+	  min-height: 100vh;
+  }
+  .buttonload {
+	  background-color: transparent; /* Green background */
+	  border: none; /* Remove borders */
+	  color: white; /* White text */
+	  font-size: 60px; /* Set a font-size */
+	  display: flex;
+	  align-items: center;
+	  text-align: center;
+   }
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  #textdiv{
+  	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  text-align: center;
+	  min-height: 100vh;
+  }
+  .buttonload {
+	  background-color: transparent; /* Green background */
+	  border: none; /* Remove borders */
+	  color: white; /* White text */
+	  font-size: 60px; /* Set a font-size */
+	  display: flex;
+	  align-items: center;
+	  text-align: center;
+   }
+}
+
+@media only screen and (orientation : landscape) {
+	.buttonload {
+	  background-color: transparent; /* Green background */
+	  border: none; /* Remove borders */
+	  color: white; /* White text */
+	  font-size: 40px; /* Set a font-size */
+	  display: flex;
+	  align-items: center;
+	  text-align: center;
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+	#text{
+		font-size: 30px;
+	}
+}
+
+@media screen and (orientation: portrait) {
+	.buttonload {
+	  background-color: transparent; /* Green background */
+	  border: none; /* Remove borders */
+	  color: white; /* White text */
+	  font-size: 70px; /* Set a font-size */
+	  display: flex;
+	  align-items: center;
+	  text-align: center;
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+	#text{
+		font-size: 50px;
+	}
+}
+
+p{
+	font-family: 'Poppins', sans-serif;
+	font-size: 50px;
+}
